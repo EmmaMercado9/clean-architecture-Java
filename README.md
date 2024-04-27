@@ -1,93 +1,92 @@
 # EmaClima
 
 
+Develop a system to query weather information, create user accounts, and facilitate user login. It will integrate real-world data and user management functionalities
 
-## Getting started
+Entity
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+1. **Username:**
+   1. **Required:** Yes
+   1. **Format Conditions:** Alphanumeric characters only (letters and numbers), between 3 and 20 characters in length.
+1. **Email:**
+   1. **Required:** Yes
+   1. **Format Conditions:** Must be a valid email format (e.g., example@example.com).
+1. **Password:**
+   1. **Required:** Yes
+   1. **Format Conditions:** Must be at least 8 characters long, containing at least one uppercase letter, one lowercase letter, one number, and one special character.
+1. **Date of Birth:**
+   1. **Required:** No
+   1. **Format Conditions:** Must be in YYYY-MM-DD format if provided.
+1. **Country:**
+   1. **Required:** No
+   1. **Format Conditions:** Any text format, maximum length of 50 characters.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
 
-## Add your files
+Use Case List:
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+1. **Query Temperature:**
+   1. **Description:** Users can input a location to retrieve the current temperature.
+   1. **Actors:** All users
+   1. **Preconditions:** System must be online and connected to a weather API.
+   1. **Basic Flow:**
+      1. User enters a location.
+      1. System queries weather data for the specified location.
+      1. System retrieves and displays the current temperature to the user.
+   1. **Alternate Flows:**
 
-```
-cd existing_repo
-git remote add origin https://gitlab.com/emamercadoambar/emaclima.git
-git branch -M main
-git push -uf origin main
-```
+      1. If the location is invalid or not found, the system prompts the user to enter a valid location.
+      1. If there is an error in retrieving the temperature data, the system displays an error message to the user.
 
-## Integrate with your tools
+1. **Create User Account:**
+   1. **Description:** New users can register for an account to access
+   1. **Preconditions:** None
+   1. **Basic Flow:**
+      1. User selects the "Sign Up" option.
+      1. User fills out the registration form with required details (e.g., username, email, password).
+      1. System validates the input and creates a new user account if the email is unique.
+      1. User account is created.
+   1. **Alternate Flows:**
 
-- [ ] [Set up project integrations](https://gitlab.com/emamercadoambar/emaclima/-/settings/integrations)
+      1. If the provided email is already associated with an existing account, the system prompts the user to log in or use a different email.
+      1. If there is an error during account creation (e.g., database connection failure), the system displays an error message to the user.
 
-## Collaborate with your team
+1. **User Login:**
+   1. **Description:** Registered users can log in to their accounts to access personalized features and settings.
+   1. **Actors:** Registered users
+   1. **Preconditions:** User must have a registered account.
+   1. **Basic Flow:**
+      1. User enters their username/email and password.
+      1. System validates the credentials.
+      1. If the credentials are valid, the system logs the user in and redirects them to the dashboard.
+   1. **Alternate Flows:**
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+      1. If the entered credentials are incorrect, the system prompts the user to enter valid credentials.
+      1. If there is an error during the login process (e.g., authentication failure), the system displays an error message to the user.
 
-## Test and Deploy
+1. **Modify User Data:**
+   1. **Description:** Registered users can modify their account information, such as username, password, and email.
+   1. **Actors:** Registered users
+   1. **Preconditions:** User must be logged in.
+   1. **Basic Flow:**
+      1. User navigates to the account settings section.
+      1. User selects the option to modify account information.
+      1. User makes changes to the desired fields (e.g., username, password, email).
+      1. System validates the modified data, ensuring the email remains unique among all users.
+      1. If the data is valid, the system updates the user's account information.
+   1. **Alternate Flows:**
 
-Use the built-in continuous integration in GitLab.
+      1. If the modified email already exists in the system, the system prompts the user to choose a different email.
+      1. If there is an error during the modification process (e.g., database update failure), the system displays an error message to the user.
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+1. **Get All Users:**
+   1. **Description:** Administrators can retrieve a list of all registered users.
+   1. **Actors:** Administrators
+   1. **Preconditions:** User must be logged in as an administrator.
+   1. **Basic Flow:**
+      1. Administrator navigates to the user management section.
+      1. System retrieves the list of all registered users.
+      1. System displays the list of users to the administrator.
+   1. **Alternate Flows:**
 
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+      1. If there are no registered users in the system, the system displays a message indicating that there are no users to display.
+      1. If there is an error retrieving the user data (e.g., database query failure), the system displays an error message to the administrator.
