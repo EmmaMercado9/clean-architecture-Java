@@ -32,6 +32,7 @@ public class UserUnitTest {
         Exception exceptionVacio = assertThrows(ExceptionUserIncomplete.class, () -> User.instance("Emmanuel","","Hola1234*",LocalDate.of(2003,1,21),"Argentina"));
         assertEquals("El correo electronico debe ser cargado!!", exceptionNull.getMessage());
         assertEquals("El correo electronico debe ser cargado!!", exceptionVacio.getMessage());
+
     }
 
 
