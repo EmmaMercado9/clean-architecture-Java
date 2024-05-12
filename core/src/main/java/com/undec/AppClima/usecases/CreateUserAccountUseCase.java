@@ -1,26 +1,26 @@
 package com.undec.AppClima.usecases;
 
 import com.undec.AppClima.domain.User;
-import com.undec.AppClima.exeptions.User.ExceptionUser;
-import com.undec.AppClima.repository.ICreateUserAccountRepository;
-import com.undec.AppClima.usecases.imput.ICrearCuentaUsuarioImput;
+import com.undec.AppClima.exeptions.User.ExceptionUserExist;
+import com.undec.AppClima.imput.ICrearCuentaUsuarioImput;
+import com.undec.AppClima.output.ICreateUserReposytory;
 
 public class CreateUserAccountUseCase implements ICrearCuentaUsuarioImput {
 
-    ICreateUserAccountRepository iCrearCuentaUsuarioRepository;
+    ICreateUserReposytory iCreateUserReposytory;
 
-    public CreateUserAccountUseCase(ICreateUserAccountRepository iCrearCuentaUsuarioRepository) {
+    public CreateUserAccountUseCase(ICreateUserReposytory iCreateUserReposytory){
+        this.iCreateUserReposytory=iCreateUserReposytory;
     }
 
-
     @Override
-    public boolean CrearUsuario(User user) throws ExceptionUser {
-        if(iCrearCuentaUsuarioRepository.UsuarioExist(user.getMail())){
+    public boolean CrearUsuario(User user) throws ExceptionUserExist {
 
-            throw new ExceptionUser("Inicie Session o Ingrese un Correo diferente");
+        if(iCreateUserReposytory.UserExist(user.getMail())){
+            throw new ExceptionUserExist("El usuario ya existe");
         }
-        else{
-            return iCrearCuentaUsuarioRepository.SaveUserAccount(user);
+        else {
+            return iCreateUserReposytory.SaveUser(user);
         }
     }
 }

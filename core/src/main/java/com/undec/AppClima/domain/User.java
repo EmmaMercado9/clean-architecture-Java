@@ -6,7 +6,8 @@ package com.undec.AppClima.domain;
 import com.undec.AppClima.Utils.CheckEmail;
 import com.undec.AppClima.Utils.CheckPassword;
 import com.undec.AppClima.Utils.CkeckName;
-import com.undec.AppClima.exeptions.User.ExceptionUser;
+import com.undec.AppClima.exeptions.User.ExceptionUserIncomplete;
+import com.undec.AppClima.exeptions.User.ExceptionUserIncorrect;
 
 import java.time.LocalDate;
 
@@ -29,28 +30,28 @@ public class User {
         this.country = country;
     }
 
-    public static User instance(String name, String mail, String password, LocalDate birthdate, String country) throws ExceptionUser {
+    public static User instance(String name, String mail, String password, LocalDate birthdate, String country) throws ExceptionUserIncomplete, ExceptionUserIncorrect {
 
         if(!CkeckName.verifyLoadedUser(name)){
-            throw new ExceptionUser("El nombre usuario debe ser cargado!!");
+            throw new ExceptionUserIncomplete("El nombre usuario debe ser cargado!!");
         }
         if((!CkeckName.verifyUser(name))){
-            throw  new ExceptionUser("Ingrese un formato adecuado!!");
+            throw  new ExceptionUserIncorrect("Ingrese un formato adecuado!!");
         }
         if(!CheckEmail.verifyLoadedMail(mail)){
-            throw new ExceptionUser("El correo electronico debe ser cargado!!");
+            throw new ExceptionUserIncomplete("El correo electronico debe ser cargado!!");
         }
         else if(!CheckEmail.verifyEmail(mail)){
-            throw new ExceptionUser("El correo electronico es invalido!!");
+            throw new ExceptionUserIncorrect("El correo electronico es invalido!!");
         }
         if(!CheckPassword.verifyLoadedPass(password)){
-            throw new ExceptionUser("La contraseña debe ser cargada!!");
+            throw new ExceptionUserIncomplete("La contraseña debe ser cargada!!");
         }
         else if(!CheckPassword.verifyPassword(password)){
-            throw new ExceptionUser("La contraseña no es valida!!");
+            throw new ExceptionUserIncorrect("La contraseña no es valida!!");
         }
         if(country.length()>50){
-            throw new ExceptionUser("Longitud Pais no valida");
+            throw new ExceptionUserIncorrect("Longitud Pais no valida");
         }
 
         return new User(name, mail,password, birthdate, country);

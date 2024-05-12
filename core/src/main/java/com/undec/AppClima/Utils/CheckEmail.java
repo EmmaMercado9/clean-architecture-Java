@@ -14,6 +14,7 @@ public class CheckEmail {
     }
 
     public static boolean verifyLoadedMail(String mail) {
-        return (mail==null || mail.isBlank());
+
+        return mail != null && !mail.isBlank();
     }
 }

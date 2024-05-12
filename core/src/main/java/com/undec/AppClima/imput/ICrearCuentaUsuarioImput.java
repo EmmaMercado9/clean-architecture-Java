@@ -1,8 +1,8 @@
-package com.undec.AppClima.usecases.imput;
+package com.undec.AppClima.imput;
 
 import com.undec.AppClima.domain.User;
-import com.undec.AppClima.exeptions.User.ExceptionUser;
+import com.undec.AppClima.exeptions.User.ExceptionUserExist;
 
 public interface ICrearCuentaUsuarioImput {
-    boolean CrearUsuario(User usuario) throws ExceptionUser;
+    boolean CrearUsuario(User usuario) throws ExceptionUserExist;
 }

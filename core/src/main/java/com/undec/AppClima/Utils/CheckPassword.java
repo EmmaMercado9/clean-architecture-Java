@@ -15,6 +15,6 @@ public class CheckPassword {
 
     public static boolean verifyLoadedPass(String password) {
 
-        return (password==null || password.isBlank());
+        return password != null && !password.isBlank();
     }
 }

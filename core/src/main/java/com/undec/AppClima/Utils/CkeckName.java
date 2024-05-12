@@ -14,6 +14,6 @@ public class CkeckName {
 
     public static boolean verifyLoadedUser(String name) {
 
-        return (name==null || name.isBlank());
+        return name != null && !name.isBlank();
     }
 }
