@@ -2,7 +2,7 @@ package com.undec.AppClima.output;
 
 import com.undec.AppClima.domain.User;
 
-public interface ICreateUserReposytory {
+public interface ICreateAccountUserReposytory {
 
     boolean UserExist(String mail);
 

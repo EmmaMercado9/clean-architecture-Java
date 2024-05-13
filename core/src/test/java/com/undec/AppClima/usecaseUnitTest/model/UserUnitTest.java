@@ -32,9 +32,22 @@ public class UserUnitTest {
         Exception exceptionVacio = assertThrows(ExceptionUserIncomplete.class, () -> User.instance("Emmanuel","","Hola1234*",LocalDate.of(2003,1,21),"Argentina"));
         assertEquals("El correo electronico debe ser cargado!!", exceptionNull.getMessage());
         assertEquals("El correo electronico debe ser cargado!!", exceptionVacio.getMessage());
-
     }
 
+    @Test
+    void instance_missingPassword_UserIncompleteException() {
+        Exception exceptionNull = assertThrows(ExceptionUserIncomplete.class, () -> User.instance("Emmanuel","emamerc@gmail.com",null,LocalDate.of(2003,1,21),"Argentina"));
+        Exception exceptionVacio = assertThrows(ExceptionUserIncomplete.class, () -> User.instance("Emmanuel","emamerc@gmail.com","",LocalDate.of(2003,1,21),"Argentina"));
+        assertEquals("La contraseña debe ser cargada!!", exceptionNull.getMessage());
+        assertEquals("La contraseña debe ser cargada!!", exceptionVacio.getMessage());
+    }
+
+    @Test
+    void instance_CountryLong_UserIncorrectException() {
+        Exception exceptionNull = assertThrows(ExceptionUserIncorrect.class, () -> User.instance("Emmanuel","emamerc@gmail.com","Hola1234*",LocalDate.of(2003,1,21),"Argentinaholabuenosdiasbuenasnochescomomestamotodobien"));
+        assertEquals("Longitud Pais no valida", exceptionNull.getMessage());
+
+    }
 
 
 

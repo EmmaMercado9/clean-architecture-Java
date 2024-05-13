@@ -6,10 +6,10 @@ import java.util.regex.Pattern;
 public class CheckPassword {
     public static boolean verifyPassword(String password) {
 
-        Pattern pattern=Pattern.compile("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$");
+        Pattern pattern=Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()_+])[A-Za-z\\d!@#$%^&*()_+]{8,}$");
         Matcher matcher=pattern.matcher(password);
 
-        return matcher.find();
+        return matcher.matches();
 
     }
 

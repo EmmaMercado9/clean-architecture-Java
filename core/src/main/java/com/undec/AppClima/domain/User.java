@@ -30,7 +30,7 @@ public class User {
         this.country = country;
     }
 
-    public static User instance(String name, String mail, String password, LocalDate birthdate, String country) throws ExceptionUserIncomplete, ExceptionUserIncorrect {
+    public static User instance(String name, String mail, String password, LocalDate birthdate, String country) {
 
         if(!CkeckName.verifyLoadedUser(name)){
             throw new ExceptionUserIncomplete("El nombre usuario debe ser cargado!!");
