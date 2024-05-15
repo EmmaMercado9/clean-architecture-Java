@@ -33,7 +33,9 @@ public class MailUnitTest {
         };
 
         for(String n : mails){
-            Assertions.assertTrue(CheckEmail.verifyEmail(n));
+            boolean isValid = CheckEmail.verifyEmail(n);
+            System.out.println("Email: " + n + " - Es válido: " + isValid);
+            Assertions.assertTrue(isValid);
         }
 
     }
@@ -58,13 +60,17 @@ public class MailUnitTest {
                 "john.doe@example..com",
                 "john.doe@example.com.",
                 "john.doe@.example.com",
-                "john.doe@example.com",
+                "@example.com",
                 "john.doe@example",
                 ".john.doe@example.com"
         };
 
+
         for(String n :mails){
-            Assertions.assertFalse(CheckEmail.verifyEmail(n));
+
+            boolean isValid = CheckEmail.verifyEmail(n);
+            System.out.println("Email: " + n + " - Es válido: " + isValid);
+            Assertions.assertFalse(isValid);
         }
     }
 }
