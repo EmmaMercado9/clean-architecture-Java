@@ -1,7 +1,5 @@
 package com.undec.AppClima.output;
-
 public interface IQueryTemperatureRepository {
-
-
-    String QueryTemperaturebyLocation(String location);
+    float QueryTemperatureByLocation(String location);
+    boolean locationExist(String location);
 }

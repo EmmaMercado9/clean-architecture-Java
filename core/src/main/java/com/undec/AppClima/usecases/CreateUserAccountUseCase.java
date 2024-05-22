@@ -1,26 +1,22 @@
 package com.undec.AppClima.usecases;
-
 import com.undec.AppClima.domain.User;
 import com.undec.AppClima.exeptions.User.ExceptionUserExist;
-import com.undec.AppClima.imput.ICreateAccountUserImput;
-import com.undec.AppClima.output.ICreateAccountUserReposytory;
-
-public class CreateUserAccountUseCase implements ICreateAccountUserImput {
-
-    ICreateAccountUserReposytory iCreateAccountUserReposytory;
-
-    public CreateUserAccountUseCase(ICreateAccountUserReposytory iCreateAccountUserReposytory){
-        this.iCreateAccountUserReposytory = iCreateAccountUserReposytory;
+import com.undec.AppClima.exeptions.User.ExceptionUserNameExist;
+import com.undec.AppClima.input.ICreateAccountUserInput;
+import com.undec.AppClima.output.ICreateAccountUserRepository;
+public class CreateUserAccountUseCase implements ICreateAccountUserInput {
+    ICreateAccountUserRepository iCreateAccountUserRepository;
+    public CreateUserAccountUseCase(ICreateAccountUserRepository iCreateAccountUserRepository){
+        this.iCreateAccountUserRepository = iCreateAccountUserRepository;
     }
-
     @Override
-    public boolean CrearUsuario(User user) throws ExceptionUserExist {
-
-        if(iCreateAccountUserReposytory.UserExist(user.getMail())){
+    public boolean createUser(User user){
+        if(iCreateAccountUserRepository.UserExist(user.getMail())){
             throw new ExceptionUserExist("El usuario ya existe");
         }
-        else {
-            return iCreateAccountUserReposytory.SaveUser(user);
+        if(iCreateAccountUserRepository.userNameExist(user.getName())){
+                throw new ExceptionUserNameExist("El nombre de Usuario ingresado ya existe, Ingrese otro!!!");
         }
+        return iCreateAccountUserRepository.SaveUser(user);
     }
 }

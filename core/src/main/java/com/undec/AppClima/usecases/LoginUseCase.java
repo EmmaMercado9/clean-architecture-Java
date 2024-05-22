@@ -1,14 +1,10 @@
 package com.undec.AppClima.usecases;
-
 import com.undec.AppClima.domain.User;
 import com.undec.AppClima.exeptions.User.ExceptionInvalidLogin;
-import com.undec.AppClima.imput.ILoginImput;
+import com.undec.AppClima.input.ILoginInput;
 import com.undec.AppClima.output.ILoginRepository;
-
-public class LoginUseCase implements ILoginImput {
-
+public class LoginUseCase implements ILoginInput {
     ILoginRepository iLoginRepository;
-
     public LoginUseCase(ILoginRepository iLoginRepository){
         this.iLoginRepository=iLoginRepository;
     }
