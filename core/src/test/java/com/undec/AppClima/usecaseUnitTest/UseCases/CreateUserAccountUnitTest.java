@@ -19,7 +19,7 @@ public class CreateUserAccountUnitTest {
     ICreateAccountUserRepository iCreateAccountUserRepository;
     @Test
     void CreateUserAccount_NoUserExists_CreateUserAccountCorrect(){
-        User user= User.instance("Emmanuel","emamerca@gmail.com","Hola123*", LocalDate.of(2003,1,26),"Argentina");
+        User user= User.instance(1L,"Emmanuel","emamerca@gmail.com","Hola123*", LocalDate.of(2003,1,26),"Argentina");
         CreateUserAccountUseCase createUserAccountUseCase=new CreateUserAccountUseCase(iCreateAccountUserRepository);
         when(iCreateAccountUserRepository.UserExist("emamerca@gmail.com")).thenReturn(false);
         when(iCreateAccountUserRepository.SaveUser(user)).thenReturn(true);
@@ -28,8 +28,7 @@ public class CreateUserAccountUnitTest {
     }
     @Test
     void CreateUserAccount_UserExists_CreateUserAccount() {
-
-        User user= User.instance("Emmanuel","emamerca@gmail.com","Hola123*", LocalDate.of(2003,1,26),"Argentina");
+        User user= User.instance(1L,"Emmanuel","emamerca@gmail.com","Hola123*", LocalDate.of(2003,1,26),"Argentina");
         CreateUserAccountUseCase createUserAccountUseCase=new CreateUserAccountUseCase(iCreateAccountUserRepository);
         when(iCreateAccountUserRepository.UserExist(user.getMail())).thenReturn(true);
         when(iCreateAccountUserRepository.SaveUser(user)).thenReturn(false);
@@ -37,12 +36,32 @@ public class CreateUserAccountUnitTest {
     }
     @Test
     void CreateUserAccount_userNameExists_CreateUserAccount() {
-
-        User user= User.instance("Emmanuel","emamerca@gmail.com","Hola123*", LocalDate.of(2003,1,26),"Argentina");
+        User user= User.instance(1L,"Emmanuel","emamerca@gmail.com","Hola123*", LocalDate.of(2003,1,26),"Argentina");
         CreateUserAccountUseCase createUserAccountUseCase=new CreateUserAccountUseCase(iCreateAccountUserRepository);
         when(iCreateAccountUserRepository.userNameExist(user.getName())).thenReturn(true);
         when(iCreateAccountUserRepository.SaveUser(user)).thenReturn(false);
         Exception exceptionUserNameExist =Assertions.assertThrows(ExceptionUserNameExist.class,()->createUserAccountUseCase.createUser(user));
         Assertions.assertEquals("El nombre de Usuario ingresado ya existe, Ingrese otro!!!",exceptionUserNameExist.getMessage());
+    }
+    @Test
+    void CreateUserAccount_UserMailAndUserNameNotExist_Success(){
+        User user= User.instance(1L,"Emmanuel","emamerca@gmail.com","Hola123*", LocalDate.of(2003,1,26),"Argentina");
+        CreateUserAccountUseCase createUserAccountUseCase=new CreateUserAccountUseCase(iCreateAccountUserRepository);
+        when(iCreateAccountUserRepository.userNameExist(user.getName())).thenReturn(false);
+        when(iCreateAccountUserRepository.UserExist(user.getMail())).thenReturn(false);
+        when(iCreateAccountUserRepository.SaveUser(user)).thenReturn(true);
+        Assertions.assertDoesNotThrow(()->createUserAccountUseCase.createUser(user));
+    }
+    @Test
+    void CreateUserAccount_UserMailAndUserNameExist_Success(){
+        User user= User.instance(1L,"Emmanuel","emamerca@gmail.com","Hola123*", LocalDate.of(2003,1,26),"Argentina");
+        CreateUserAccountUseCase createUserAccountUseCase=new CreateUserAccountUseCase(iCreateAccountUserRepository);
+        when(iCreateAccountUserRepository.UserExist(user.getMail())).thenReturn(true);
+        when(iCreateAccountUserRepository.userNameExist(user.getName())).thenReturn(true);
+        Exception resulMail=Assertions.assertThrows(ExceptionUserExist.class,()->createUserAccountUseCase.createUser(user));
+        Assertions.assertEquals("El usuario ya existe",resulMail.getMessage());
+        when(iCreateAccountUserRepository.UserExist(user.getMail())).thenReturn(false);
+        Exception resulName=Assertions.assertThrows(ExceptionUserNameExist.class,()->createUserAccountUseCase.createUser(user));
+        Assertions.assertEquals("El nombre de Usuario ingresado ya existe, Ingrese otro!!!",resulName.getMessage());
     }
 }

@@ -19,7 +19,7 @@ public class LoginUnitTest {
     @Test
     void ValidateLogin_UserExist_LoginCorrect() {
         LoginUseCase loginUseCase = new LoginUseCase(iLoginRepository);
-        User user = User.instance("Emmanuel", "emamerca@gmail.com", "Hola123*", LocalDate.of(2003, 1, 26), "Argentina");
+        User user = User.instance(1L,"Emmanuel", "emamerca@gmail.com", "Hola123*", LocalDate.of(2003, 1, 26), "Argentina");
         when(iLoginRepository.searchUserByName("Emmanuel")).thenReturn(user);
         boolean result = loginUseCase.LoginUser("Emmanuel", "Hola123*");
         Assertions.assertTrue(result);
@@ -34,7 +34,7 @@ public class LoginUnitTest {
     @Test
     void ValidateLogin_PasswordNoMatch_ExceptionInvalidLogin(){
         LoginUseCase loginUseCase=new LoginUseCase(iLoginRepository);
-        User user= User.instance("Emmanuel","emamerca@gmail.com","Hola123*", LocalDate.of(2003,1,26),"Argentina");
+        User user= User.instance(1L,"Emmanuel","emamerca@gmail.com","Hola123*", LocalDate.of(2003,1,26),"Argentina");
         when(iLoginRepository.searchUserByName("Emmanuel")).thenReturn(user);
         Exception passwordNoMatch=Assertions.assertThrows(ExceptionInvalidLogin.class,()->loginUseCase.LoginUser("Emmanuel","Hola123**"));
         Assertions.assertEquals("Ingrese credenciales válidas!!",passwordNoMatch.getMessage());

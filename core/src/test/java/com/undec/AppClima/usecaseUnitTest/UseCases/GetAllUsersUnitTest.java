@@ -20,9 +20,9 @@ public class GetAllUsersUnitTest {
     void consultUser_ExistUser_ReturnCollection(){
         GetAllUsersUseCase getAllUsersUseCase=new GetAllUsersUseCase(iGetAllUsersRepository);
         List<User> users= Arrays.asList(
-                User.instance("Emmanuel","emamerca@gmail.com","Hola123*", LocalDate.of(2003,1,26),"Argentina"),
-                User.instance("Mateo1","mateo12@gmail.com","Hola123*", LocalDate.of(2003,1,26),"Argentina"),
-                User.instance("Emmamercad","emamerca@gmail.com","Hola123*", LocalDate.of(2003,1,26),"Argentina")
+                User.instance(1L,"Emmanuel","emamerca@gmail.com","Hola123*", LocalDate.of(2003,1,26),"Argentina"),
+                User.instance(2L,"Mateo1","mateo12@gmail.com","Hola123*", LocalDate.of(2003,1,26),"Argentina"),
+                User.instance(3L,"Emmamercad","emamerca@gmail.com","Hola123*", LocalDate.of(2003,1,26),"Argentina")
         );
         when(iGetAllUsersRepository.getAll()).thenReturn(users);
         Collection<User> totalUsers=getAllUsersUseCase.getAllUsers();

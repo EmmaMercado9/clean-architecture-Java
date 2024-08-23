@@ -12,7 +12,7 @@
 
 	<modules>
 		<module>core</module>
-
+		<module>infrastructure</module>
 	</modules>
 	<description>Demo project for Spring Boot</description>
 	<properties>
